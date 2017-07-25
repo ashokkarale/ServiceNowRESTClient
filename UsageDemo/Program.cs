@@ -11,9 +11,9 @@ namespace UsageDemo
 {
     class Program
     {
-        static string myInstance = "testulare";
-        static string instanceUserName = "ApiUserName";
-        static string instancePassword = "ApiUserPass";
+        static string myInstance = "domain";
+        static string instanceUserName = @"userId";
+        static string instancePassword = "password";
 
         static void Main(string[] args)
         {
@@ -33,53 +33,53 @@ namespace UsageDemo
             TableAPIClient<sys_user> userClient = new TableAPIClient<sys_user>("sys_user", myInstance, instanceUserName, instancePassword);
 
             // Deomstrate the Create (POST) operation:
-            var createdUser = userClient.Post(new sys_user()
-            {
-                employee_number = "012345",
-                first_name = "Tester",
-                last_name = "McTester",
-                email = "tester@testcompany.com",
-                phone = "",
-                // You can use Name instead of sys_id, but if service now does not find your value it will ignore it without any warning.
-                location = new ResourceLink() { value = "VISALIA COURTHOUSE" }  
-            });
-            Console.WriteLine("User Created: " + createdUser.Result.first_name + " " + createdUser.Result.last_name + " (" + createdUser.Result.sys_id + ")");
+            //var createdUser = userClient.Post(new sys_user()
+            //{
+            //    employee_number = "012345",
+            //    first_name = "Tester",
+            //    last_name = "McTester",
+            //    email = "tester@testcompany.com",
+            //    phone = "",
+            //    // You can use Name instead of sys_id, but if service now does not find your value it will ignore it without any warning.
+            //    location = new ResourceLink() { value = "VISALIA COURTHOUSE" }  
+            //});
+            //Console.WriteLine("User Created: " + createdUser.Result.first_name + " " + createdUser.Result.last_name + " (" + createdUser.Result.sys_id + ")");
 
 
             // Deonstrate the GetById (GET) operation:
-            var retrievedUser = userClient.GetById(createdUser.Result.sys_id);
-            Console.WriteLine("User Retrieved: " + retrievedUser.Result.first_name + " " + retrievedUser.Result.last_name + " (" + retrievedUser.Result.sys_id + ")");
-            Console.WriteLine("              : eMail: " + retrievedUser.Result.email);
-            Console.WriteLine("              : Location: " + retrievedUser.Result.Location_name);
+            //var retrievedUser = userClient.GetById(createdUser.Result.sys_id);
+            //Console.WriteLine("User Retrieved: " + retrievedUser.Result.first_name + " " + retrievedUser.Result.last_name + " (" + retrievedUser.Result.sys_id + ")");
+            //Console.WriteLine("              : eMail: " + retrievedUser.Result.email);
+            //Console.WriteLine("              : Location: " + retrievedUser.Result.Location_name);
 
 
             // Demonstrate Update (PUT) operation:
-            Console.WriteLine("\n\nUpdating User");
-            if (retrievedUser.Result != null)
-            {
-                var d = retrievedUser.Result;
-                d.email = "newEmail@testcompany.com";
+            //Console.WriteLine("\n\nUpdating User");
+            //if (retrievedUser.Result != null)
+            //{
+            //    var d = retrievedUser.Result;
+            //    d.email = "newEmail@testcompany.com";
 
-                // Set the location using the Guid of a good location, otherwise handle it.
-                try
-                {                    
-                    d.location = new ResourceLink() { value = findLocationId("VISALIA DISTRICT OFFICE") };
-                }
-                catch(Exception ex)
-                {
-                    Console.WriteLine("Unable to set new user location: " + ex.Message);
-                }
+            //    // Set the location using the Guid of a good location, otherwise handle it.
+            //    try
+            //    {                    
+            //        d.location = new ResourceLink() { value = findLocationId("VISALIA DISTRICT OFFICE") };
+            //    }
+            //    catch(Exception ex)
+            //    {
+            //        Console.WriteLine("Unable to set new user location: " + ex.Message);
+            //    }
 
-                var updatedUser = userClient.Put(d);
-                Console.WriteLine("              : eMail: " + updatedUser.Result.email);
-                Console.WriteLine("              : Location: " + updatedUser.Result.Location_name);
-            }
+            //    var updatedUser = userClient.Put(d);
+            //    Console.WriteLine("              : eMail: " + updatedUser.Result.email);
+            //    Console.WriteLine("              : Location: " + updatedUser.Result.Location_name);
+            //}
 
 
-            // Domonstrate Delete operation
-            Console.Write("\n\nDeleting User");            
-            userClient.Delete(retrievedUser.Result.sys_id);
-            Console.WriteLine("...Done");
+            //// Domonstrate Delete operation
+            //Console.Write("\n\nDeleting User");            
+            //userClient.Delete(retrievedUser.Result.sys_id);
+            //Console.WriteLine("...Done");
         }
         
 
